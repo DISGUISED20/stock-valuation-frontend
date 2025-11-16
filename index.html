@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NSE Stock Valuation Tool</title>
 
+    <!-- GOOGLE SEARCH CONSOLE VERIFICATION -->
+    <meta name="google-site-verification" content="fTcgfHqT1FpbuB2GEISkVBEthVv8HM7lIfx6ivk7U8c" />
+
     <style>
         body {
             background: #000;
@@ -147,7 +150,6 @@ async function searchStock() {
         const res = await fetch(`${backend}/query?ticker=${encodeURIComponent(t)}`);
         const html = await res.text();
 
-        // Extract ONLY the valuation table from backend HTML
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, "text/html");
         const table = doc.querySelector("table");

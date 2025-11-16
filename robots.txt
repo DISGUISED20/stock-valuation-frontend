@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://disguised20.github.io/stock-valuation-frontend/sitemap.xml

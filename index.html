@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NSE Stock Valuation Tool</title>
-    <meta name="description" content="Free NSE stock valuation tool with EPS, PE, IV, Buy Price, Sell Price, Screener & yFinance fallback.">
-    
+
     <style>
         body {
             background: #000;
@@ -19,21 +18,12 @@
             margin-top: 30px;
             font-size: 28px;
         }
-        .container {
-            width: 90%;
-            max-width: 750px;
-            margin: 25px auto;
-            background: #111;
-            padding: 20px;
-            border-radius: 10px;
-        }
-
         .searchbar {
             margin: auto;
+            margin-top: 30px;
             width: 90%;
             max-width: 750px;
             position: relative;
-            margin-top: 20px;
         }
         input[type="text"] {
             padding: 10px;
@@ -77,6 +67,14 @@
         #suggestions div:hover {
             background: #222;
         }
+        .container {
+            width: 90%;
+            max-width: 750px;
+            margin: 25px auto;
+            background: #111;
+            padding: 20px;
+            border-radius: 10px;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -107,56 +105,74 @@
 <script>
 const backend = "https://stock-valuation-app.onrender.com";
 
+/* ------------------- AUTOCOMPLETE ------------------- */
 async function doSuggest() {
-    const q = document.getElementById("ticker").value.trim();
-    const box = document.getElementById("suggestions");
+    const q = ticker.value.trim();
+    const box = suggestions;
     box.innerHTML = "";
 
     if (!q) { box.style.display = "none"; return; }
 
     try {
-        const res = await fetch(backend + "/search_api?query=" + encodeURIComponent(q));
+        const res = await fetch(`${backend}/search_api?query=${encodeURIComponent(q)}`);
         const data = await res.json();
 
         if (!data.length) { box.style.display = "none"; return; }
 
         data.forEach(item => {
-            const div = document.createElement("div");
-            div.textContent = item;
-            div.onclick = () => {
-                document.getElementById("ticker").value = item;
+            let d = document.createElement("div");
+            d.textContent = item;
+            d.onclick = () => {
+                ticker.value = item;
                 box.style.display = "none";
             };
-            box.appendChild(div);
+            box.appendChild(d);
         });
 
         box.style.display = "block";
-    } catch (err) {
-        console.log(err);
+    } catch (e) {
+        console.log(e);
         box.style.display = "none";
     }
 }
 
+/* ------------------- SEARCH STOCK ------------------- */
 async function searchStock() {
-    const ticker = document.getElementById("ticker").value.trim();
-    if (!ticker) return alert("Enter a ticker like RELIANCE.NS");
+    const t = ticker.value.trim();
+    if (!t) return alert("Enter a ticker like RELIANCE.NS");
 
-    const result = document.getElementById("result");
     result.innerHTML = `<div class="loading">Fetching data…</div>`;
 
     try {
-        const res = await fetch(backend + "/query?ticker=" + encodeURIComponent(ticker));
+        const res = await fetch(`${backend}/query?ticker=${encodeURIComponent(t)}`);
         const html = await res.text();
-        result.innerHTML = html; // FULL PAGE HTML FROM BACKEND
+
+        // Extract ONLY the valuation table from backend HTML
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+        const table = doc.querySelector("table");
+
+        if (!table) {
+            result.innerHTML = "<p style='color:red;'>Error fetching data.</p>";
+            return;
+        }
+
+        result.innerHTML = `
+            <div class="container">
+                <h2>Valuation</h2>
+            </div>
+        `;
+        result.querySelector(".container").appendChild(table);
+
     } catch (err) {
         result.innerHTML = "<p style='color:red;'>Error fetching data.</p>";
     }
 }
 
-document.addEventListener("click", function(e) {
-    const box = document.getElementById("suggestions");
-    const inp = document.getElementById("ticker");
-    if (!box.contains(e.target) && e.target !== inp) box.style.display = "none";
+/* CLOSE SUGGESTIONS WHEN CLICKING OUTSIDE */
+document.addEventListener("click", e => {
+    if (!suggestions.contains(e.target) && e.target !== ticker)
+        suggestions.style.display = "none";
 });
 </script>
 

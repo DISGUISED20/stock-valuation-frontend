@@ -1,12 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NSE Stock Valuation Tool</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>NSE Stock Valuation Tool – Intrinsic Value Calculator for Indian Stocks</title>
 
-    <!-- GOOGLE SEARCH CONSOLE VERIFICATION -->
+    <!-- Google verification (you provided) -->
     <meta name="google-site-verification" content="fTcgfHqT1FpbuB2GEISkVBEthVv8HM7lIfx6ivk7U8c" />
+
+    <!-- Primary SEO -->
+    <meta name="description" content="Free NSE Stock Valuation Tool — calculate EPS, P/E, forward EPS, intrinsic value and buy/sell levels for Indian stocks. Intrinsic Value Calculator India and Fair Value Calculator for Indian Stocks." />
+    <meta name="keywords" content="NSE Stock Valuation Tool, Intrinsic Value Calculator India, Fair Value Calculator for Indian Stocks, NSE intrinsic value, stock valuation India, EPS PE calculator" />
+    <meta name="author" content="disguised20" />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://disguised20.github.io/stock-valuation-frontend/" />
+    <link rel="sitemap" type="application/xml" href="sitemap.xml" />
+
+    <!-- Open Graph (social previews) -->
+    <meta property="og:title" content="NSE Stock Valuation Tool – Intrinsic Value Calculator for Indian Stocks" />
+    <meta property="og:description" content="Calculate intrinsic value, forward EPS, fair P/E and buy/sell levels for NSE stocks. Use autocomplete, yFinance primary data and Screener.in fallback." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://disguised20.github.io/stock-valuation-frontend/" />
+    <!-- If you add an image, put the URL here as og:image -->
+    <!-- <meta property="og:image" content="https://yourdomain/.../preview.png" /> -->
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="NSE Stock Valuation Tool – Intrinsic Value Calculator for Indian Stocks" />
+    <meta name="twitter:description" content="Free NSE Stock Valuation Tool — EPS, P/E, intrinsic value & buy/sell suggestions for Indian stocks." />
+
+    <!-- JSON-LD (structured data) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "NSE Stock Valuation Tool",
+      "url": "https://disguised20.github.io/stock-valuation-frontend/",
+      "description": "Calculate intrinsic value, forward EPS and fair P/E for Indian (NSE) stocks. Autocomplete, yFinance primary data and Screener.in fallback.",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Web",
+      "creator": {
+        "@type": "Person",
+        "name": "disguised20"
+      }
+    }
+    </script>
 
     <style>
         body {
@@ -91,6 +129,21 @@
             margin-top: 20px;
             color: #888;
         }
+
+        /* unobtrusive SEO block (keeps layout clean but adds crawlable content) */
+        .seo-block {
+            color: #bbb;
+            font-size: 13px;
+            text-align: left;
+            max-width: 750px;
+            margin: 12px auto;
+            line-height: 1.45;
+            display:block;
+        }
+        @media (max-width:600px) {
+            input[type="text"] { width: 70%; }
+            #suggestions { width: 70%; }
+        }
     </style>
 </head>
 <body>
@@ -103,7 +156,15 @@
     <div id="suggestions"></div>
 </div>
 
+<!-- main results container -->
 <div id="result"></div>
+
+<!-- SEO-friendly descriptive block (visible, short, helpful to users and crawlers) -->
+<div class="seo-block" aria-hidden="false">
+    <strong>NSE Stock Valuation Tool:</strong> A free Intrinsic Value Calculator for Indian stocks. Use the tool to compute
+    EPS (TTM), trailing P/E, forward EPS, Fair P/E and intrinsic value — and get suggested Buy / Sell levels.
+    This Intrinsic Value Calculator India is ideal for fundamental analysis and quick fair value checks on NSE stocks.
+</div>
 
 <script>
 const backend = "https://stock-valuation-app.onrender.com";
@@ -147,9 +208,11 @@ async function searchStock() {
     result.innerHTML = `<div class="loading">Fetching data…</div>`;
 
     try {
+        // your backend currently returns an HTML valuation page — keep existing logic: fetch, parse, display the table
         const res = await fetch(`${backend}/query?ticker=${encodeURIComponent(t)}`);
         const html = await res.text();
 
+        // Extract ONLY the valuation table from backend HTML
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, "text/html");
         const table = doc.querySelector("table");

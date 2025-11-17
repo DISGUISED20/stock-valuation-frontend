@@ -140,6 +140,9 @@
 
 <div id="result"></div>
 
+<!-- ✅ AFFILIATE BOX (ADDED EXACTLY AS REQUESTED) -->
+<div id="affiliate-box" style="margin-top:20px;"></div>
+
 <script>
 const backend = "https://stock-valuation-app.onrender.com";
 
@@ -200,6 +203,18 @@ async function searchStock() {
             </div>
         `;
         result.querySelector(".container").appendChild(table);
+
+        /* ADD THE AFFILIATE BOX BELOW RESULTS */
+        document.getElementById("affiliate-box").innerHTML = `
+            <div style="margin-top:20px; padding:15px; background:#111; border-radius:8px;">
+                <h3>Best Discount Broker (Recommended)</h3>
+                <p>Open a FREE Demat Account with Zerodha — India's #1 broker.</p>
+                <a href="YOUR_ZERODHA_REFERRAL_LINK"
+                   style="padding:10px 20px; background:#2e8b57; color:white; border-radius:6px; text-decoration:none; display:inline-block;">
+                   Open Account
+                </a>
+            </div>
+        `;
 
     } catch (err) {
         result.innerHTML = "<p style='color:red;'>Error fetching data.</p>";

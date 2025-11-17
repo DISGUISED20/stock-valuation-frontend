@@ -104,6 +104,39 @@
         #suggestions div:hover {
             background: #222;
         }
+
+        /* Monetization Box */
+        .brokers-box {
+            width: 90%;
+            max-width: 750px;
+            margin: 25px auto;
+            background: #111;
+            padding: 18px;
+            border-radius: 10px;
+            border: 1px solid #333;
+        }
+        .brokers-box h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        .broker-btn {
+            display: block;
+            width: 90%;
+            max-width: 400px;
+            margin: 10px auto;
+            padding: 12px;
+            background: #2e8b57;
+            border-radius: 6px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: bold;
+        }
+        .broker-btn:hover {
+            background: #35a468;
+        }
+
         .container {
             width: 90%;
             max-width: 750px;
@@ -138,10 +171,16 @@
     <div id="suggestions"></div>
 </div>
 
-<div id="result"></div>
+<!-- 💰 Monetization Section (Placeholders used) -->
+<div class="brokers-box">
+    <h3>Open a Free Demat Account</h3>
 
-<!-- ✅ AFFILIATE BOX (ADDED EXACTLY AS REQUESTED) -->
-<div id="affiliate-box" style="margin-top:20px;"></div>
+    <a class="broker-btn" href="https://zerodha_link_here" target="_blank">Open Zerodha Account</a>
+    <a class="broker-btn" href="https://upstox_link_here" target="_blank">Open Upstox Account</a>
+    <a class="broker-btn" href="https://angelone_link_here" target="_blank">Open Angel One Account</a>
+</div>
+
+<div id="result"></div>
 
 <script>
 const backend = "https://stock-valuation-app.onrender.com";
@@ -203,18 +242,6 @@ async function searchStock() {
             </div>
         `;
         result.querySelector(".container").appendChild(table);
-
-        /* ADD THE AFFILIATE BOX BELOW RESULTS */
-        document.getElementById("affiliate-box").innerHTML = `
-            <div style="margin-top:20px; padding:15px; background:#111; border-radius:8px;">
-                <h3>Best Discount Broker (Recommended)</h3>
-                <p>Open a FREE Demat Account with Zerodha — India's #1 broker.</p>
-                <a href="YOUR_ZERODHA_REFERRAL_LINK"
-                   style="padding:10px 20px; background:#2e8b57; color:white; border-radius:6px; text-decoration:none; display:inline-block;">
-                   Open Account
-                </a>
-            </div>
-        `;
 
     } catch (err) {
         result.innerHTML = "<p style='color:red;'>Error fetching data.</p>";

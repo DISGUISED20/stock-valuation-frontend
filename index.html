@@ -26,7 +26,7 @@
     <!-- CANONICAL URL -->
     <link rel="canonical" href="https://disguised20.github.io/stock-valuation-frontend/">
 
-    <!-- STRUCTURED DATA / SCHEMA -->
+    <!-- STRUCTURED DATA -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -35,10 +35,7 @@
       "url": "https://disguised20.github.io/stock-valuation-frontend/",
       "applicationCategory": "FinancialApplication",
       "description": "Free NSE stock valuation tool with intrinsic value, EPS, PE, and buy/sell indicators using live market data.",
-      "creator": {
-        "@type": "Person",
-        "name": "Disguised20"
-      }
+      "creator": { "@type": "Person", "name": "Disguised20" }
     }
     </script>
 
@@ -104,39 +101,6 @@
         #suggestions div:hover {
             background: #222;
         }
-
-        /* Monetization Box */
-        .brokers-box {
-            width: 90%;
-            max-width: 750px;
-            margin: 25px auto;
-            background: #111;
-            padding: 18px;
-            border-radius: 10px;
-            border: 1px solid #333;
-        }
-        .brokers-box h3 {
-            margin-top: 0;
-            margin-bottom: 15px;
-            font-size: 20px;
-        }
-        .broker-btn {
-            display: block;
-            width: 90%;
-            max-width: 400px;
-            margin: 10px auto;
-            padding: 12px;
-            background: #2e8b57;
-            border-radius: 6px;
-            color: #fff;
-            text-decoration: none;
-            font-size: 17px;
-            font-weight: bold;
-        }
-        .broker-btn:hover {
-            background: #35a468;
-        }
-
         .container {
             width: 90%;
             max-width: 750px;
@@ -171,42 +135,49 @@
     <div id="suggestions"></div>
 </div>
 
-<!-- 💰 Monetization Section (Placeholders used) -->
-<div style="margin-top:40px; text-align:center;">
-    <h2>Best Discount Broker (Recommended)</h2>
-    <p>Open a FREE Demat Account with Zerodha — India’s #1 broker.</p>
-    <a href="https://zerodha.com/open-account" target="_blank">
-        <button style="
-            padding: 12px 24px; 
-            background:#2e8b57; 
-            color:white; 
-            border:none; 
-            border-radius:6px; 
-            font-size:16px;
-            cursor:pointer;">
-            Open Account
-        </button>
-    </a>
-</div>
+<!-- RESULT APPEARS HERE -->
+<div id="result"></div>
 
+<!-- BROKERS APPEAR BELOW RESULT -->
+<div id="brokers" style="margin-top:40px; display:none;">
+
+    <div style="background:#111; width:90%; max-width:750px; margin:20px auto; padding:25px; border-radius:10px;">
+        <h2>Open a Free Demat Account</h2>
+
+        <div style="margin-top:20px;">
+            <a href="https://zerodha.com/open-account" target="_blank">
+                <button style="width:60%; max-width:420px;">Open Zerodha Account</button>
+            </a>
+        </div>
+
+        <div style="margin-top:15px;">
+            <a href="https://join.upstox.com/" target="_blank">
+                <button style="width:60%; max-width:420px;">Open Upstox Account</button>
+            </a>
+        </div>
+
+        <div style="margin-top:15px;">
+            <a href="https://www.angelone.in/open-demat-account" target="_blank">
+                <button style="width:60%; max-width:420px;">Open Angel One Account</button>
+            </a>
+        </div>
+    </div>
+
+</div>
 
 <script>
 const backend = "https://stock-valuation-app.onrender.com";
 
-/* ------------------- AUTOCOMPLETE ------------------- */
+/* AUTOCOMPLETE */
 async function doSuggest() {
     const q = ticker.value.trim();
     const box = suggestions;
     box.innerHTML = "";
-
     if (!q) { box.style.display = "none"; return; }
-
     try {
         const res = await fetch(`${backend}/search_api?query=${encodeURIComponent(q)}`);
         const data = await res.json();
-
         if (!data.length) { box.style.display = "none"; return; }
-
         data.forEach(item => {
             let d = document.createElement("div");
             d.textContent = item;
@@ -216,7 +187,6 @@ async function doSuggest() {
             };
             box.appendChild(d);
         });
-
         box.style.display = "block";
     } catch (e) {
         console.log(e);
@@ -224,7 +194,7 @@ async function doSuggest() {
     }
 }
 
-/* ------------------- SEARCH STOCK ------------------- */
+/* SEARCH STOCK */
 async function searchStock() {
     const t = ticker.value.trim();
     if (!t) return alert("Enter a ticker like RELIANCE.NS");
@@ -249,14 +219,18 @@ async function searchStock() {
                 <h2>Valuation</h2>
             </div>
         `;
+
         result.querySelector(".container").appendChild(table);
+
+        // SHOW BROKER BOX AFTER SEARCH
+        document.getElementById("brokers").style.display = "block";
 
     } catch (err) {
         result.innerHTML = "<p style='color:red;'>Error fetching data.</p>";
     }
 }
 
-/* CLOSE SUGGESTIONS WHEN CLICKING OUTSIDE */
+/* HIDE AUTOCOMPLETE WHEN CLICKING OUTSIDE */
 document.addEventListener("click", e => {
     if (!suggestions.contains(e.target) && e.target !== ticker)
         suggestions.style.display = "none";

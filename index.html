@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Google Analytics -->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LP3R89QMHY"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-LP3R89QMHY');
+    </script>
+
     <!-- SEO -->
     <title>NSE Stock Valuation Tool — Intrinsic Value, EPS, PE, Buy/Sell</title>
     <meta name="description" content="Free NSE Stock Valuation Tool. Get EPS, PE, Intrinsic Value, Buy Price, Sell Price instantly using live NSE prices with yFinance + Screener fallback.">
@@ -128,10 +138,28 @@
             cursor: pointer;
             display: block;
         }
+
+        /* HEADER LINKS */
+        .top-nav {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .top-nav a {
+            color: #2e8b57;
+            font-size: 16px;
+            margin: 0 10px;
+            text-decoration: none;
+        }
     </style>
 </head>
 
 <body>
+
+<!-- TOP NAVIGATION -->
+<div class="top-nav">
+    <a href="about.html">About Us</a>
+    <a href="blog/index.html">Blog</a>
+</div>
 
 <h1>NSE Stock Valuation Tool</h1>
 
@@ -221,35 +249,12 @@ document.addEventListener("click", e => {
 });
 </script>
 
-<!-- ================= FOOTER ================= -->
-<footer style="margin-top:60px; padding:40px 0; background:#0d0d0d; color:#aaa;">
-
-    <div style="max-width:900px; margin:auto; text-align:center;">
-
-        <h2 style="color:white; margin-bottom:20px; font-size:22px;">About Us</h2>
-        <p style="max-width:700px; margin:auto; line-height:1.6; color:#bbb;">
-            We built this free NSE Stock Valuation Tool to help Indian investors quickly
-            estimate intrinsic value, fair PE, and buy/sell zones using real market data.
-            No login, no ads (yet), just clean analysis.
-        </p>
-
-        <hr style="border:0; border-top:1px solid #222; margin:35px 0;">
-
-        <div style="display:flex; justify-content:center; flex-wrap:wrap; gap:25px;">
-            <a href="blog/index.html" style="color:#2e8b57; font-size:16px;">📘 Blog</a>
-            <a href="privacy.html" style="color:#2e8b57; font-size:16px;">Privacy Policy</a>
-            <a href="terms.html" style="color:#2e8b57; font-size:16px;">Terms & Conditions</a>
-            <a href="disclaimer.html" style="color:#2e8b57; font-size:16px;">Disclaimer</a>
-        </div>
-
-        <p style="margin-top:40px; color:#555; font-size:14px;">
-            © 2025 Stock Valuation Tool — Built by Disguised20
-        </p>
-
-    </div>
-
-</footer>
-<!-- ========================================== -->
+<!-- FOOTER LINKS -->
+<div style="margin-top:40px; text-align:center; color:#aaa; font-size:14px;">
+  <a href="privacy.html" style="color:#2e8b57;">Privacy Policy</a> •
+  <a href="terms.html" style="color:#2e8b57;">Terms & Conditions</a> •
+  <a href="disclaimer.html" style="color:#2e8b57;">Disclaimer</a>
+</div>
 
 </body>
 </html>

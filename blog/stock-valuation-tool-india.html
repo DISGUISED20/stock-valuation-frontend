@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Stock Valuation Tool — How this tool works (India)</title>
+  <meta name="description" content="Short explanation of how the NSE Stock Valuation Tool works: data sources, calculations and margin of safety. Use the live tool to value Indian stocks.">
+  <meta name="keywords" content="stock valuation tool india, how stock valuation works, NSE tool">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="canonical" href="https://disguised20.github.io/stock-valuation-frontend/blog/stock-valuation-tool-india.html">
+  <style>
+    body { background:#000; color:#fff; font-family:Arial,Helvetica,sans-serif; margin:0; padding:28px; }
+    .wrap { max-width:900px; margin:0 auto; }
+    h1 { color:#fff; }
+    p { color:#dcdcdc; line-height:1.6; }
+    .card { background:#111; padding:18px; border-radius:8px; margin-top:18px; }
+    .cta { display:inline-block; margin-top:14px; padding:10px 14px; background:#2e8b57; color:#fff; border-radius:6px; text-decoration:none; }
+    footer { margin-top:30px; color:#9b9b9b; font-size:14px; text-align:center; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>How this NSE Stock Valuation Tool works — short explanation</h1>
+    <div class="card">
+      <p>This tool was built to give fast, simple valuations for Indian stocks using a conservative method. Here’s what it does and where the numbers come from.</p>
+
+      <h2>Data sources</h2>
+      <ul>
+        <li><strong>Market prices:</strong> best-effort from NSE public endpoints (if blocked, fallback to other data).</li>
+        <li><strong>Fundamentals:</strong> primary from yFinance; if missing, the tool scrapes Screener.in for EPS and P/E.</li>
+      </ul>
+
+      <h2>Calculation in plain terms</h2>
+      <p>The app uses:</p>
+      <ul>
+        <li>Trailing EPS (or scraped EPS)</li>
+        <li>A conservative expected growth rate (default)</li>
+        <li>A fair P/E based on industry/historical values and caps</li>
+      </ul>
+
+      <p>Forward EPS × Fair P/E = Intrinsic Value. Then the tool applies a margin of safety (default 30%) to produce suggested buy/sell levels.</p>
+
+      <p>If you want quick checks, type a ticker like <code>RELIANCE.NS</code> into the tool. Always double-check before trading.</p>
+
+      <a class="cta" href="../index.html">Open the Valuation Tool</a>
+    </div>
+
+    <footer>
+      <div><a href="../index.html">Home</a> • <a href="../privacy.html">Privacy</a> • <a href="../terms.html">Terms</a></div>
+      <div style="margin-top:8px;">© NSE Stock Valuation Tool</div>
+    </footer>
+  </div>
+</body>
+</html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Stock Valuation Tool — How this tool works (India)</title>
+  <meta name="description" content="Short explanation of how the NSE Stock Valuation Tool works: data sources, calculations and margin of safety. Use the live tool to value Indian stocks.">
+  <meta name="keywords" content="stock valuation tool india, how stock valuation works, NSE tool">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="canonical" href="https://disguised20.github.io/stock-valuation-frontend/blog/stock-valuation-tool-india.html">
+  <style>
+    body { background:#000; color:#fff; font-family:Arial,Helvetica,sans-serif; margin:0; padding:28px; }
+    .wrap { max-width:900px; margin:0 auto; }
+    h1 { color:#fff; }
+    p { color:#dcdcdc; line-height:1.6; }
+    .card { background:#111; padding:18px; border-radius:8px; margin-top:18px; }
+    .cta { display:inline-block; margin-top:14px; padding:10px 14px; background:#2e8b57; color:#fff; border-radius:6px; text-decoration:none; }
+    footer { margin-top:30px; color:#9b9b9b; font-size:14px; text-align:center; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>How this NSE Stock Valuation Tool works — short explanation</h1>
+    <div class="card">
+      <p>This tool was built to give fast, simple valuations for Indian stocks using a conservative method. Here’s what it does and where the numbers come from.</p>
+
+      <h2>Data sources</h2>
+      <ul>
+        <li><strong>Market prices:</strong> best-effort from NSE public endpoints (if blocked, fallback to other data).</li>
+        <li><strong>Fundamentals:</strong> primary from yFinance; if missing, the tool scrapes Screener.in for EPS and P/E.</li>
+      </ul>
+
+      <h2>Calculation in plain terms</h2>
+      <p>The app uses:</p>
+      <ul>
+        <li>Trailing EPS (or scraped EPS)</li>
+        <li>A conservative expected growth rate (default)</li>
+        <li>A fair P/E based on industry/historical values and caps</li>
+      </ul>
+
+      <p>Forward EPS × Fair P/E = Intrinsic Value. Then the tool applies a margin of safety (default 30%) to produce suggested buy/sell levels.</p>
+
+      <p>If you want quick checks, type a ticker like <code>RELIANCE.NS</code> into the tool. Always double-check before trading.</p>
+
+      <a class="cta" href="../index.html">Open the Valuation Tool</a>
+    </div>
+
+    <footer>
+      <div><a href="../index.html">Home</a> • <a href="../privacy.html">Privacy</a> • <a href="../terms.html">Terms</a></div>
+      <div style="margin-top:8px;">© NSE Stock Valuation Tool</div>
+    </footer>
+  </div>
+</body>
+</html>

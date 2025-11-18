@@ -4,26 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- SEO TITLE -->
     <title>NSE Stock Valuation Tool — Intrinsic Value, EPS, PE, Buy/Sell</title>
 
-    <!-- SEO DESCRIPTION -->
     <meta name="description" content="Free NSE Stock Valuation Tool. Get EPS, PE, Intrinsic Value, Buy Price, Sell Price instantly using live NSE prices, yFinance, and Screener fallback.">
-
-    <!-- SEO KEYWORDS -->
-    <meta name="keywords" content="NSE stock valuation, intrinsic value calculator, stock fair value India, Indian stocks analysis, EPS PE calculator, stock buy sell calculator, Reliance analysis, Tata Motors valuation, Indian stock market tool">
-
-    <!-- AUTHOR -->
+    <meta name="keywords" content="NSE stock valuation, intrinsic value calculator, stock fair value India, Indian stocks analysis, EPS PE calculator, stock buy sell calculator">
     <meta name="author" content="Disguised20">
 
-    <!-- GOOGLE SEARCH BOT -->
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
 
-    <!-- GOOGLE VERIFICATION -->
     <meta name="google-site-verification" content="fTcgfHqT1FpbuB2GEISkVBEthVv8HM7lIfx6ivk7U8c" />
 
-    <!-- CANONICAL URL -->
     <link rel="canonical" href="https://disguised20.github.io/stock-valuation-frontend/">
 
     <style>
@@ -109,8 +100,6 @@
             margin-top: 20px;
             color: #888;
         }
-
-        /* Affiliate section */
         .aff-container {
             width: 90%;
             max-width: 750px;
@@ -147,17 +136,15 @@
 
 <div id="result"></div>
 
-<!-- AFFILIATE SECTION BELOW VALUATION -->
+<!-- AFFILIATE SECTION -->
 <div class="aff-container">
     <h2>Open a Free Demat Account</h2>
 
-    <!-- Zerodha -->
-    <a href="ZERODHA_LINK_HERE" target="_blank">
+    <a href="https://zerodha.com/open-account" target="_blank">
         <button class="aff-btn">Open Zerodha Account</button>
     </a>
 
-    <!-- Angel One -->
-    <a href="https://www.angelone.in/open-demat-account" target="https://www.angelone.in/open-demat-account">
+    <a href="https://www.angelone.in/open-demat-account" target="_blank">
         <button class="aff-btn">Open Angel One Account</button>
     </a>
 </div>
@@ -165,7 +152,6 @@
 <script>
 const backend = "https://stock-valuation-app.onrender.com";
 
-/* ------------------- AUTOCOMPLETE ------------------- */
 async function doSuggest() {
     const q = ticker.value.trim();
     const box = suggestions;
@@ -191,12 +177,10 @@ async function doSuggest() {
 
         box.style.display = "block";
     } catch (e) {
-        console.log(e);
         box.style.display = "none";
     }
 }
 
-/* ------------------- SEARCH STOCK ------------------- */
 async function searchStock() {
     const t = ticker.value.trim();
     if (!t) return alert("Enter a ticker like RELIANCE.NS");
@@ -228,7 +212,6 @@ async function searchStock() {
     }
 }
 
-/* CLOSE SUGGESTIONS */
 document.addEventListener("click", e => {
     if (!suggestions.contains(e.target) && e.target !== ticker)
         suggestions.style.display = "none";

@@ -135,11 +135,6 @@
 
 <h1>NSE Stock Valuation Tool</h1>
 
-<!-- ⭐ BLOG LINK UNDER TITLE ⭐ -->
-<div style="margin-top:20px;">
-    <a href="blog/index.html" style="color:#2e8b57; font-size:18px;">📘 Visit Blog</a>
-</div>
-
 <!-- SEARCH BAR -->
 <div class="searchbar">
     <input id="ticker" type="text" placeholder="RELIANCE.NS" onkeyup="doSuggest()" autocomplete="off">
@@ -219,14 +214,13 @@ async function searchStock() {
     }
 }
 
-/* CLOSE AUTOCOMPLETE WHEN CLICKING OUTSIDE */
+/* CLOSE SUGGESTIONS */
 document.addEventListener("click", e => {
     if (!suggestions.contains(e.target) && e.target !== ticker)
         suggestions.style.display = "none";
 });
 </script>
 
-<!-- FOOTER LINKS -->
 <!-- ================= FOOTER ================= -->
 <footer style="margin-top:60px; padding:40px 0; background:#0d0d0d; color:#aaa;">
 
@@ -242,12 +236,10 @@ document.addEventListener("click", e => {
         <hr style="border:0; border-top:1px solid #222; margin:35px 0;">
 
         <div style="display:flex; justify-content:center; flex-wrap:wrap; gap:25px;">
-
             <a href="blog/index.html" style="color:#2e8b57; font-size:16px;">📘 Blog</a>
             <a href="privacy.html" style="color:#2e8b57; font-size:16px;">Privacy Policy</a>
             <a href="terms.html" style="color:#2e8b57; font-size:16px;">Terms & Conditions</a>
             <a href="disclaimer.html" style="color:#2e8b57; font-size:16px;">Disclaimer</a>
-
         </div>
 
         <p style="margin-top:40px; color:#555; font-size:14px;">
@@ -255,9 +247,9 @@ document.addEventListener("click", e => {
         </p>
 
     </div>
+
 </footer>
 <!-- ========================================== -->
-
 
 </body>
 </html>

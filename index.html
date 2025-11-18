@@ -4,29 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- SEO TITLE -->
     <title>NSE Stock Valuation Tool — Intrinsic Value, EPS, PE, Buy/Sell</title>
 
-    <!-- SEO DESCRIPTION -->
     <meta name="description" content="Free NSE Stock Valuation Tool. Get EPS, PE, Intrinsic Value, Buy Price, Sell Price instantly using live NSE prices, yFinance, and Screener fallback.">
 
-    <!-- SEO KEYWORDS -->
     <meta name="keywords" content="NSE stock valuation, intrinsic value calculator, stock fair value India, Indian stocks analysis, EPS PE calculator, stock buy sell calculator, Reliance analysis, Tata Motors valuation, Indian stock market tool">
 
-    <!-- AUTHOR -->
     <meta name="author" content="Disguised20">
-
-    <!-- GOOGLE SEARCH BOT -->
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
 
-    <!-- GOOGLE VERIFICATION -->
     <meta name="google-site-verification" content="fTcgfHqT1FpbuB2GEISkVBEthVv8HM7lIfx6ivk7U8c" />
 
-    <!-- CANONICAL URL -->
     <link rel="canonical" href="https://disguised20.github.io/stock-valuation-frontend/">
 
-    <!-- STRUCTURED DATA -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -35,7 +26,10 @@
       "url": "https://disguised20.github.io/stock-valuation-frontend/",
       "applicationCategory": "FinancialApplication",
       "description": "Free NSE stock valuation tool with intrinsic value, EPS, PE, and buy/sell indicators using live market data.",
-      "creator": { "@type": "Person", "name": "Disguised20" }
+      "creator": {
+        "@type": "Person",
+        "name": "Disguised20"
+      }
     }
     </script>
 
@@ -48,10 +42,8 @@
             padding: 0;
             text-align: center;
         }
-        h1 {
-            margin-top: 30px;
-            font-size: 28px;
-        }
+        h1 { margin-top: 30px; font-size: 28px; }
+
         .searchbar {
             margin: auto;
             margin-top: 30px;
@@ -59,6 +51,7 @@
             max-width: 750px;
             position: relative;
         }
+
         input[type="text"] {
             padding: 10px;
             width: 60%;
@@ -69,6 +62,7 @@
             color: #fff;
             font-size: 16px;
         }
+
         button {
             padding: 10px 14px;
             border-radius: 4px;
@@ -79,6 +73,7 @@
             font-size: 16px;
             margin-left: 8px;
         }
+
         #suggestions {
             position: absolute;
             background: #111;
@@ -92,15 +87,16 @@
             display: none;
             z-index: 1000;
         }
+
         #suggestions div {
             padding: 8px;
             cursor: pointer;
             border-bottom: 1px solid #222;
             text-align: left;
         }
-        #suggestions div:hover {
-            background: #222;
-        }
+
+        #suggestions div:hover { background: #222; }
+
         .container {
             width: 90%;
             max-width: 750px;
@@ -109,19 +105,42 @@
             padding: 20px;
             border-radius: 10px;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 15px;
         }
+
         th, td {
             padding: 10px;
             border: 1px solid #333;
         }
-        .loading {
-            margin-top: 20px;
-            color: #888;
+
+        .affiliate-box {
+            width: 90%;
+            max-width: 750px;
+            background: #111;
+            margin: 30px auto;
+            padding: 20px;
+            border-radius: 10px;
         }
+
+        .aff-btn {
+            width: 90%;
+            max-width: 500px;
+            background: #248f46;
+            color: white;
+            padding: 12px;
+            margin: 10px auto;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            display: block;
+        }
+
+        .loading { margin-top: 20px; color: #888; }
     </style>
 </head>
 
@@ -135,49 +154,39 @@
     <div id="suggestions"></div>
 </div>
 
-<!-- RESULT APPEARS HERE -->
 <div id="result"></div>
 
-<!-- BROKERS APPEAR BELOW RESULT -->
-<div id="brokers" style="margin-top:40px; display:none;">
+<!-- AFFILIATE LINKS BELOW RESULTS -->
+<div class="affiliate-box">
+    <h2>Open a Free Demat Account</h2>
 
-    <div style="background:#111; width:90%; max-width:750px; margin:20px auto; padding:25px; border-radius:10px;">
-        <h2>Open a Free Demat Account</h2>
+    <!-- Zerodha -->
+    <a href="ZERODHA_LINK_HERE" target="_blank">
+        <button class="aff-btn">Open Zerodha Account</button>
+    </a>
 
-        <div style="margin-top:20px;">
-            <a href="https://zerodha.com/open-account" target="_blank">
-                <button style="width:60%; max-width:420px;">Open Zerodha Account</button>
-            </a>
-        </div>
-
-        <div style="margin-top:15px;">
-            <a href="https://join.upstox.com/" target="_blank">
-                <button style="width:60%; max-width:420px;">Open Upstox Account</button>
-            </a>
-        </div>
-
-        <div style="margin-top:15px;">
-            <a href="https://www.angelone.in/open-demat-account" target="_blank">
-                <button style="width:60%; max-width:420px;">Open Angel One Account</button>
-            </a>
-        </div>
-    </div>
-
+    <!-- Angel One -->
+    <a href="ANGEL_ONE_LINK_HERE" target="_blank">
+        <button class="aff-btn">Open Angel One Account</button>
+    </a>
 </div>
 
 <script>
 const backend = "https://stock-valuation-app.onrender.com";
 
-/* AUTOCOMPLETE */
 async function doSuggest() {
     const q = ticker.value.trim();
     const box = suggestions;
     box.innerHTML = "";
+
     if (!q) { box.style.display = "none"; return; }
+
     try {
         const res = await fetch(`${backend}/search_api?query=${encodeURIComponent(q)}`);
         const data = await res.json();
+
         if (!data.length) { box.style.display = "none"; return; }
+
         data.forEach(item => {
             let d = document.createElement("div");
             d.textContent = item;
@@ -187,6 +196,7 @@ async function doSuggest() {
             };
             box.appendChild(d);
         });
+
         box.style.display = "block";
     } catch (e) {
         console.log(e);
@@ -194,7 +204,6 @@ async function doSuggest() {
     }
 }
 
-/* SEARCH STOCK */
 async function searchStock() {
     const t = ticker.value.trim();
     if (!t) return alert("Enter a ticker like RELIANCE.NS");
@@ -219,18 +228,13 @@ async function searchStock() {
                 <h2>Valuation</h2>
             </div>
         `;
-
         result.querySelector(".container").appendChild(table);
-
-        // SHOW BROKER BOX AFTER SEARCH
-        document.getElementById("brokers").style.display = "block";
 
     } catch (err) {
         result.innerHTML = "<p style='color:red;'>Error fetching data.</p>";
     }
 }
 
-/* HIDE AUTOCOMPLETE WHEN CLICKING OUTSIDE */
 document.addEventListener("click", e => {
     if (!suggestions.contains(e.target) && e.target !== ticker)
         suggestions.style.display = "none";

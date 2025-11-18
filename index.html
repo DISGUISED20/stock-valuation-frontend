@@ -4,18 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- SEO -->
     <title>NSE Stock Valuation Tool — Intrinsic Value, EPS, PE, Buy/Sell</title>
-
-    <meta name="description" content="Free NSE Stock Valuation Tool. Get EPS, PE, Intrinsic Value, Buy Price, Sell Price instantly using live NSE prices, yFinance, and Screener fallback.">
-    <meta name="keywords" content="NSE stock valuation, intrinsic value calculator, stock fair value India, Indian stocks analysis, EPS PE calculator, stock buy sell calculator">
-    <meta name="author" content="Disguised20">
-
+    <meta name="description" content="Free NSE Stock Valuation Tool. Get EPS, PE, Intrinsic Value, Buy Price, Sell Price instantly using live NSE prices with yFinance + Screener fallback.">
+    <meta name="keywords" content="NSE stock valuation, intrinsic value calculator, Indian stock tool, EPS PE calculator, stock fair value India">
     <meta name="robots" content="index, follow">
-    <meta name="googlebot" content="index, follow">
-
+    <meta name="author" content="Disguised20">
     <meta name="google-site-verification" content="fTcgfHqT1FpbuB2GEISkVBEthVv8HM7lIfx6ivk7U8c" />
-
     <link rel="canonical" href="https://disguised20.github.io/stock-valuation-frontend/">
+
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "NSE Stock Valuation Tool",
+      "url": "https://disguised20.github.io/stock-valuation-frontend/",
+      "applicationCategory": "FinancialApplication",
+      "description": "NSE stock valuation tool with intrinsic value, EPS, PE, buy/sell suggestions.",
+      "creator": { "@type": "Person", "name": "Disguised20" }
+    }
+    </script>
 
     <style>
         body {
@@ -26,13 +35,11 @@
             padding: 0;
             text-align: center;
         }
-        h1 {
-            margin-top: 30px;
-            font-size: 28px;
-        }
+        h1 { margin-top: 30px; font-size: 28px; }
+
+        /* SEARCH BAR */
         .searchbar {
-            margin: auto;
-            margin-top: 30px;
+            margin: 30px auto;
             width: 90%;
             max-width: 750px;
             position: relative;
@@ -44,7 +51,7 @@
             border-radius: 4px;
             border: none;
             background: #222;
-            color: #fff;
+            color: white;
             font-size: 16px;
         }
         button {
@@ -57,6 +64,8 @@
             font-size: 16px;
             margin-left: 8px;
         }
+
+        /* AUTOCOMPLETE */
         #suggestions {
             position: absolute;
             background: #111;
@@ -72,13 +81,13 @@
         }
         #suggestions div {
             padding: 8px;
+            text-align: left;
             cursor: pointer;
             border-bottom: 1px solid #222;
-            text-align: left;
         }
-        #suggestions div:hover {
-            background: #222;
-        }
+        #suggestions div:hover { background: #222; }
+
+        /* RESULT CONTAINER */
         .container {
             width: 90%;
             max-width: 750px;
@@ -96,28 +105,26 @@
             padding: 10px;
             border: 1px solid #333;
         }
-        .loading {
-            margin-top: 20px;
-            color: #888;
-        }
+
+        /* AFFILIATE SECTION */
         .aff-container {
             width: 90%;
             max-width: 750px;
-            margin: 30px auto;
+            margin: 40px auto;
             background: #111;
             padding: 20px;
             border-radius: 10px;
         }
         .aff-btn {
             width: 80%;
-            max-width: 350px;
+            max-width: 500px;
             background: #2e8b57;
             padding: 12px;
+            margin: 10px auto;
             border-radius: 6px;
             border: none;
             color: white;
-            font-size: 16px;
-            margin: 10px auto;
+            font-size: 18px;
             cursor: pointer;
             display: block;
         }
@@ -128,23 +135,25 @@
 
 <h1>NSE Stock Valuation Tool</h1>
 
+<!-- SEARCH BAR -->
 <div class="searchbar">
     <input id="ticker" type="text" placeholder="RELIANCE.NS" onkeyup="doSuggest()" autocomplete="off">
     <button onclick="searchStock()">Search</button>
     <div id="suggestions"></div>
 </div>
 
+<!-- RESULTS -->
 <div id="result"></div>
 
 <!-- AFFILIATE SECTION -->
 <div class="aff-container">
     <h2>Open a Free Demat Account</h2>
 
-    <a href="https://zerodha.com/open-account" target="_blank">
+    <a href="https://zerodha.com/open-account" target="_blank" rel="noopener noreferrer">
         <button class="aff-btn">Open Zerodha Account</button>
     </a>
 
-    <a href="https://www.angelone.in/open-demat-account" target="_blank">
+    <a href="https://www.angelone.in/open-demat-account" target="_blank" rel="noopener noreferrer">
         <button class="aff-btn">Open Angel One Account</button>
     </a>
 </div>
@@ -152,6 +161,7 @@
 <script>
 const backend = "https://stock-valuation-app.onrender.com";
 
+/* AUTOCOMPLETE */
 async function doSuggest() {
     const q = ticker.value.trim();
     const box = suggestions;
@@ -168,24 +178,20 @@ async function doSuggest() {
         data.forEach(item => {
             let d = document.createElement("div");
             d.textContent = item;
-            d.onclick = () => {
-                ticker.value = item;
-                box.style.display = "none";
-            };
+            d.onclick = () => { ticker.value = item; box.style.display = "none"; };
             box.appendChild(d);
         });
 
         box.style.display = "block";
-    } catch (e) {
-        box.style.display = "none";
-    }
+    } catch (e) { box.style.display = "none"; }
 }
 
+/* SEARCH STOCK */
 async function searchStock() {
     const t = ticker.value.trim();
     if (!t) return alert("Enter a ticker like RELIANCE.NS");
 
-    result.innerHTML = `<div class="loading">Fetching data…</div>`;
+    result.innerHTML = `<div style='color:#888;'>Fetching data…</div>`;
 
     try {
         const res = await fetch(`${backend}/query?ticker=${encodeURIComponent(t)}`);
@@ -200,11 +206,7 @@ async function searchStock() {
             return;
         }
 
-        result.innerHTML = `
-            <div class="container">
-                <h2>Valuation</h2>
-            </div>
-        `;
+        result.innerHTML = `<div class="container"><h2>Valuation</h2></div>`;
         result.querySelector(".container").appendChild(table);
 
     } catch (err) {
@@ -212,6 +214,7 @@ async function searchStock() {
     }
 }
 
+/* CLOSE SUGGESTIONS */
 document.addEventListener("click", e => {
     if (!suggestions.contains(e.target) && e.target !== ticker)
         suggestions.style.display = "none";

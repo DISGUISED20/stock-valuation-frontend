@@ -134,10 +134,11 @@
 <body>
 
 <h1>NSE Stock Valuation Tool</h1>
-    <div style="margin-top:20px;">
+
+<!-- ⭐ BLOG LINK UNDER TITLE ⭐ -->
+<div style="margin-top:20px;">
     <a href="blog/index.html" style="color:#2e8b57; font-size:18px;">📘 Visit Blog</a>
 </div>
-
 
 <!-- SEARCH BAR -->
 <div class="searchbar">
@@ -218,27 +219,19 @@ async function searchStock() {
     }
 }
 
-/* CLOSE SUGGESTIONS */
+/* CLOSE AUTOCOMPLETE WHEN CLICKING OUTSIDE */
 document.addEventListener("click", e => {
     if (!suggestions.contains(e.target) && e.target !== ticker)
         suggestions.style.display = "none";
 });
 </script>
-    
-</script>
 
-<!-- ================= FOOTER LINKS ================= -->
+<!-- FOOTER LINKS -->
 <div style="margin-top:40px; text-align:center; color:#aaa; font-size:14px;">
   <a href="privacy.html" style="color:#2e8b57;">Privacy Policy</a> •
   <a href="terms.html" style="color:#2e8b57;">Terms & Conditions</a> •
   <a href="disclaimer.html" style="color:#2e8b57;">Disclaimer</a>
 </div>
-<!-- ================================================= -->
-
-    
-</body>
-</html>
-
 
 </body>
 </html>

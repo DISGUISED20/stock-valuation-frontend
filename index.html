@@ -152,4 +152,88 @@
     <h2>Open a Free Demat Account</h2>
 
     <!-- Zerodha -->
-    <a href="ZERODHA_LI_
+    <a href="ZERODHA_LINK_HERE" target="_blank">
+        <button class="aff-btn">Open Zerodha Account</button>
+    </a>
+
+    <!-- Angel One -->
+    <a href="ANGELONE_LINK_HERE" target="_blank">
+        <button class="aff-btn">Open Angel One Account</button>
+    </a>
+</div>
+
+<script>
+const backend = "https://stock-valuation-app.onrender.com";
+
+/* ------------------- AUTOCOMPLETE ------------------- */
+async function doSuggest() {
+    const q = ticker.value.trim();
+    const box = suggestions;
+    box.innerHTML = "";
+
+    if (!q) { box.style.display = "none"; return; }
+
+    try {
+        const res = await fetch(`${backend}/search_api?query=${encodeURIComponent(q)}`);
+        const data = await res.json();
+
+        if (!data.length) { box.style.display = "none"; return; }
+
+        data.forEach(item => {
+            let d = document.createElement("div");
+            d.textContent = item;
+            d.onclick = () => {
+                ticker.value = item;
+                box.style.display = "none";
+            };
+            box.appendChild(d);
+        });
+
+        box.style.display = "block";
+    } catch (e) {
+        console.log(e);
+        box.style.display = "none";
+    }
+}
+
+/* ------------------- SEARCH STOCK ------------------- */
+async function searchStock() {
+    const t = ticker.value.trim();
+    if (!t) return alert("Enter a ticker like RELIANCE.NS");
+
+    result.innerHTML = `<div class="loading">Fetching data…</div>`;
+
+    try {
+        const res = await fetch(`${backend}/query?ticker=${encodeURIComponent(t)}`);
+        const html = await res.text();
+
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+        const table = doc.querySelector("table");
+
+        if (!table) {
+            result.innerHTML = "<p style='color:red;'>Error fetching data.</p>";
+            return;
+        }
+
+        result.innerHTML = `
+            <div class="container">
+                <h2>Valuation</h2>
+            </div>
+        `;
+        result.querySelector(".container").appendChild(table);
+
+    } catch (err) {
+        result.innerHTML = "<p style='color:red;'>Error fetching data.</p>";
+    }
+}
+
+/* CLOSE SUGGESTIONS */
+document.addEventListener("click", e => {
+    if (!suggestions.contains(e.target) && e.target !== ticker)
+        suggestions.style.display = "none";
+});
+</script>
+
+</body>
+</html>
